@@ -31,7 +31,7 @@ jobs:
           ls -al
           ssh server "[[ -d ~/keycloak ]] || mkdir ~/keycloak"
           echo "test"
-          ssh server "[[ -f ~/keycloak/docker-compose.yml ]] && sudo rm -rf ~/keycloak/docker-compose.yml"
+          ssh server "sudo rm -rf ~/keycloak/docker-compose.yml"
           echo "test2"
           scp docker-compose.yml server:~/keycloak
           ssh server "cd ~/keycloak && echo ${{ secrets.REGISTRY_ACCESS_TOKEN }} | sudo docker login ghcr.io -u naichinger --password-stdin && sudo docker compose pull"
