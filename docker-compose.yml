@@ -1,7 +1,6 @@
 version: '3.8'
 services:
   traefik:
-    container_name: traefik
     image: traefik:v2.9.1
     restart: unless-stopped
     command:
@@ -15,7 +14,6 @@ services:
       - "--certificatesresolvers.myresolver.acme.email=notmyemail@naichinger.com"
       - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
     ports:
-      - "80:80"
       - "443:443"
     volumes:
       - "./letsencrypt:/letsencrypt"
@@ -64,7 +62,6 @@ services:
       - "traefik.http.routers.keycloak.rule=Host(`absdev.naichinger.com`)"
       - "traefik.http.routers.keycloak.entrypoints=websecure"
       - "traefik.http.routers.keycloak.tls.certresolver=myresolver"
-      - "traefik.http.services.keycloak.loadbalancer.server.port=8080"
 networks:
   keycloak-network:
     driver: bridge
